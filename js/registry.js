@@ -5,10 +5,20 @@
 import boids from "../algorithms/boids/index.js";
 import reactionDiffusion from "../algorithms/reaction-diffusion/index.js";
 import lSystem from "../algorithms/l-system/index.js";
+import physarum from "../algorithms/physarum/index.js";
+import antColony from "../algorithms/ant-colony/index.js";
+import voronoi from "../algorithms/voronoi/index.js";
+import dla from "../algorithms/dla/index.js";
+import flowField from "../algorithms/flow-field/index.js";
 
 /** @type {object[]} */
 export const algorithms = [
   boids,
+  flowField,
+  physarum,
+  antColony,
   reactionDiffusion,
+  voronoi,
+  dla,
   lSystem,
 ];

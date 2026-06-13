@@ -44,7 +44,12 @@ import map in `index.html`.
 │       └── controls.js     # params schema -> Tweakpane panel
 ├── algorithms/
 │   ├── boids/              # flocking
+│   ├── flow-field/         # Perlin-noise flow field
+│   ├── physarum/           # slime-mould transport networks
+│   ├── ant-colony/         # stigmergic foraging
 │   ├── reaction-diffusion/ # Gray-Scott
+│   ├── voronoi/            # Lloyd-relaxed tessellation
+│   ├── dla/                # diffusion-limited aggregation
 │   └── l-system/           # Lindenmayer turtle graphics
 ├── assets/                 # optional poster thumbnails
 └── .nojekyll               # serve files as-is on Pages
@@ -101,8 +106,8 @@ The params schema fields map directly onto Tweakpane bindings (`min`, `max`,
 
 ## Roadmap
 
-- More algorithms: ant colony / stigmergy, slime mold (Physarum), Voronoi
-  growth, diffusion-limited aggregation, Perlin flow fields.
+- More algorithms: cellular automata (Lenia / Game of Life), Perlin terrain,
+  differential growth, particle-based fluids.
 - Optional poster thumbnails in `assets/` for instant grid paint before a
   preview mounts.
 - Deep-linking (`#<algorithm-id>`) to open a specific algorithm.
