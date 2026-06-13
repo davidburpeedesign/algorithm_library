@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biomimetic Algorithm Library</title>
+  <meta name="description" content="A grid of biomimetic algorithms for prototyping design visualizations, simulations, and data viz." />
+
+  <link rel="stylesheet" href="./css/tokens.css" />
+  <link rel="stylesheet" href="./css/app.css" />
+
+  <!-- No build step: bare module specifiers are resolved here. -->
+  <script type="importmap">
+  {
+    "imports": {
+      "p5": "https://esm.sh/p5@1.9.4",
+      "tweakpane": "https://esm.sh/tweakpane@4.0.5"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header class="app-header">
+    <h1 class="app-title">Biomimetic Algorithm Library</h1>
+    <p class="app-subtitle">
+      A growing collection of nature-inspired algorithms for design prototyping,
+      simulation, and data visualization. Click any tile to explore its controls.
+    </p>
+  </header>
+
+  <main id="app" class="app-main" aria-busy="true">
+    <!-- The grid is mounted here by js/main.js -->
+  </main>
+
+  <footer class="app-footer">
+    <span>Built with p5.js &amp; Tweakpane &middot; served from GitHub Pages</span>
+  </footer>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
