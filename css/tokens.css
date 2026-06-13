@@ -1,0 +1,46 @@
+/* tokens.css — design tokens: dark theme palette, spacing, type. */
+:root {
+  /* Palette (dark) */
+  --bg:        #0c0e12;
+  --bg-raised: #14171d;
+  --bg-card:   #171b22;
+  --bg-card-hover: #1d2230;
+  --border:    #262c38;
+  --border-strong: #36405230;
+
+  --text:      #e6e9ef;
+  --text-dim:  #9aa3b2;
+  --text-faint:#5d6675;
+
+  --accent:    #5eead4; /* teal — "living" feel */
+  --accent-2:  #a78bfa; /* violet */
+  --accent-3:  #f0abfc;
+
+  --overlay:   rgba(6, 8, 11, 0.72);
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  /* Radius */
+  --radius-1: 6px;
+  --radius-2: 10px;
+  --radius-3: 16px;
+
+  /* Type */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+
+  /* Elevation */
+  --shadow-1: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-2: 0 8px 24px rgba(0,0,0,0.45);
+  --shadow-3: 0 20px 60px rgba(0,0,0,0.55);
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
