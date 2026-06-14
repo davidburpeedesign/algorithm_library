@@ -10,6 +10,9 @@ import antColony from "../algorithms/ant-colony/index.js";
 import voronoi from "../algorithms/voronoi/index.js";
 import dla from "../algorithms/dla/index.js";
 import flowField from "../algorithms/flow-field/index.js";
+import differentialGrowth from "../algorithms/differential-growth/index.js";
+import chladni from "../algorithms/chladni/index.js";
+import particleFluid from "../algorithms/particle-fluid/index.js";
 
 /** @type {object[]} */
 export const algorithms = [
@@ -17,8 +20,11 @@ export const algorithms = [
   flowField,
   physarum,
   antColony,
+  particleFluid,
   reactionDiffusion,
   voronoi,
+  differentialGrowth,
+  chladni,
   dla,
   lSystem,
 ];
