@@ -4,6 +4,7 @@
 // ants carrying food do the reverse. Both fields evaporate, so only paths
 // that keep getting reinforced survive — short routes win.
 import { sizeOf } from "../../js/engine/lifecycle.js";
+import { BG, INK, ACCENT } from "../../js/engine/palette.js";
 
 export function sketch(p, ctx) {
   const { params, preview, container } = ctx;
@@ -145,23 +146,22 @@ export function sketch(p, ctx) {
       const fp = Math.min(1, foodPher[i]);
       const hp = Math.min(1, homePher[i]);
       const j = i * 4;
-      // food trail → teal, home trail → violet, blended over dark.
-      px[j] = 14 + hp * 150;
-      px[j + 1] = 18 + fp * 200;
-      px[j + 2] = 24 + fp * 120 + hp * 120;
+      // Home trail blends toward ink, food trail toward accent, over bg.
+      px[j] = clamp8(BG[0] + hp * (INK[0] - BG[0]) + fp * (ACCENT[0] - BG[0]));
+      px[j + 1] = clamp8(BG[1] + hp * (INK[1] - BG[1]) + fp * (ACCENT[1] - BG[1]));
+      px[j + 2] = clamp8(BG[2] + hp * (INK[2] - BG[2]) + fp * (ACCENT[2] - BG[2]));
       px[j + 3] = 255;
     }
-    // Nest (white), food (amber while stocked).
-    paintDisc(px, nest.x, nest.y, 2, [240, 240, 245]);
+    // Nest (ink), food caches (accent while stocked).
+    paintDisc(px, nest.x, nest.y, 2, INK);
     for (const fd of foods) {
-      if (fd.amount > 0) paintDisc(px, fd.x, fd.y, 2, [240, 200, 120]);
+      if (fd.amount > 0) paintDisc(px, fd.x, fd.y, 2, ACCENT);
     }
-    // Ants.
+    // Ants: carrying food → accent, searching → ink.
     for (const a of ants) {
       const j = ((a.x | 0) + (a.y | 0) * COLS) * 4;
-      if (a.hasFood) { px[j] = 250; px[j + 1] = 210; px[j + 2] = 130; }
-      else { px[j] = 220; px[j + 1] = 225; px[j + 2] = 235; }
-      px[j + 3] = 255;
+      const c = a.hasFood ? ACCENT : INK;
+      px[j] = c[0]; px[j + 1] = c[1]; px[j + 2] = c[2]; px[j + 3] = 255;
     }
     p.updatePixels();
   };
@@ -181,6 +181,10 @@ export function sketch(p, ctx) {
   function dist2(x1, y1, x2, y2) {
     const dx = x1 - x2, dy = y1 - y2;
     return dx * dx + dy * dy;
+  }
+
+  function clamp8(v) {
+    return v < 0 ? 0 : v > 255 ? 255 : v;
   }
 
   p.mousePressed = () => {

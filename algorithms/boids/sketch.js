@@ -3,6 +3,7 @@
 // Reads from `ctx.params` every frame, so Tweakpane edits apply live. In
 // preview mode it runs a smaller flock to stay cheap inside the grid.
 import { sizeOf } from "../../js/engine/lifecycle.js";
+import { BG, ACCENT } from "../../js/engine/palette.js";
 
 export function sketch(p, ctx) {
   const { params, preview, container } = ctx;
@@ -31,7 +32,7 @@ export function sketch(p, ctx) {
     const { w, h } = sizeOf(container);
     p.createCanvas(w, h);
     syncPopulation();
-    p.background(11, 14, 18);
+    p.background(...BG);
   };
 
   p.windowResized = () => {
@@ -45,7 +46,7 @@ export function sketch(p, ctx) {
     // Fade to background for motion trails (trail=0 => fully clear each frame).
     const fade = p.map(params.trail, 0, 0.6, 255, 30, true);
     p.noStroke();
-    p.fill(11, 14, 18, fade);
+    p.fill(...BG, fade);
     p.rect(0, 0, p.width, p.height);
 
     const perception = params.perception;
@@ -92,7 +93,7 @@ export function sketch(p, ctx) {
 
     // Integrate + wrap + render.
     p.noStroke();
-    p.fill(94, 234, 212);
+    p.fill(...ACCENT);
     const r = preview ? 2.1 : 2.8;
     for (const b of boids) {
       b.vel.add(b.acc).limit(maxSpeed);

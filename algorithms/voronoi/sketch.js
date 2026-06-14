@@ -4,6 +4,7 @@
 // accumulating per-cell centroids, then nudge each seed toward its centroid.
 // The tessellation settles into an even, centroidal packing.
 import { sizeOf } from "../../js/engine/lifecycle.js";
+import { BG, INK, ACCENT, lerpRGB } from "../../js/engine/palette.js";
 
 export function sketch(p, ctx) {
   const { params, preview, container } = ctx;
@@ -16,13 +17,9 @@ export function sketch(p, ctx) {
   let assign;       // Int16Array nearest-seed index per pixel
 
   function makeColor() {
-    // Teal→violet family with varied brightness.
-    const t = Math.random();
-    return [
-      Math.round(50 + t * 150),
-      Math.round(120 + (1 - t) * 110),
-      Math.round(140 + t * 90),
-    ];
+    // Varied shades of the accent over the background.
+    const t = 0.3 + Math.random() * 0.7;
+    return lerpRGB(BG, ACCENT, t).map((v) => Math.round(v));
   }
 
   function syncSeeds() {
@@ -106,7 +103,7 @@ export function sketch(p, ctx) {
           ((x > 0 && assign[i - 1] !== k) ||
             (y > 0 && assign[i - COLS] !== k))
         ) {
-          r = 12; g = 15; b = 20;
+          r = INK[0]; g = INK[1]; b = INK[2];
         }
         const j = i * 4;
         px[j] = r; px[j + 1] = g; px[j + 2] = b; px[j + 3] = 255;
