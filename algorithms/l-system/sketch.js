@@ -4,6 +4,7 @@
 // stop the rAF loop. The detail view recreates the sketch on every control
 // change (see `restartOnChange`).
 import { sizeOf } from "../../js/engine/lifecycle.js";
+import { BG, INK, ACCENT, lerpRGB } from "../../js/engine/palette.js";
 
 // Each preset: axiom, production rules, turn angle (deg), and a sane iteration
 // cap so high counts don't explode the string length.
@@ -84,7 +85,7 @@ export function sketch(p, ctx) {
     const str = expand(preset, iterations);
     const segs = buildSegments(str, preset.angle);
 
-    p.background(11, 14, 18);
+    p.background(...BG);
     if (segs.length === 0) return;
 
     // Fit the path into the canvas with padding.
@@ -105,9 +106,10 @@ export function sketch(p, ctx) {
     p.strokeWeight(preview ? 1 : params.weight);
     for (let i = 0; i < segs.length; i++) {
       const [x1, y1, x2, y2] = segs[i];
-      // Gradient along the path: violet base → teal tips.
+      // Gradient along the path: ink base → accent tips.
       const t = i / segs.length;
-      p.stroke(94 + t * 60, 234 - t * 40, 212 + t * 30, 220);
+      const c = lerpRGB(INK, ACCENT, t);
+      p.stroke(c[0], c[1], c[2], 230);
       p.line(
         offX + x1 * scale, offY + y1 * scale,
         offX + x2 * scale, offY + y2 * scale

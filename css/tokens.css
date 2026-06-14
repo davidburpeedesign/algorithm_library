@@ -1,22 +1,29 @@
-/* tokens.css — design tokens: dark theme palette, spacing, type. */
+/* tokens.css — design tokens: shared palette, spacing, type.
+ *
+ * Three-colour scheme, kept in sync with js/engine/palette.js:
+ *   bg     #222222  — background
+ *   ink    #E4E3DF  — text, frames, outlines, supplementary graphics
+ *   accent #E48484  — algorithmic content / primary accent
+ */
 :root {
-  /* Palette (dark) */
-  --bg:        #0c0e12;
-  --bg-raised: #14171d;
-  --bg-card:   #171b22;
-  --bg-card-hover: #1d2230;
-  --border:    #262c38;
-  --border-strong: #36405230;
+  /* Palette */
+  --bg:        #222222;
+  --bg-raised: #2a2a2a;
+  --bg-card:   #2a2a2a;
+  --bg-card-hover: #323232;
 
-  --text:      #e6e9ef;
-  --text-dim:  #9aa3b2;
-  --text-faint:#5d6675;
+  --ink:       #e4e3df;
+  --accent:    #e48484;
 
-  --accent:    #5eead4; /* teal — "living" feel */
-  --accent-2:  #a78bfa; /* violet */
-  --accent-3:  #f0abfc;
+  /* Ink at varying strengths for text + structure */
+  --text:      var(--ink);
+  --text-dim:  rgba(228, 227, 223, 0.68);
+  --text-faint:rgba(228, 227, 223, 0.42);
 
-  --overlay:   rgba(6, 8, 11, 0.72);
+  --border:        rgba(228, 227, 223, 0.18);
+  --border-strong: rgba(228, 227, 223, 0.32);
+
+  --overlay:   rgba(18, 18, 18, 0.72);
 
   /* Spacing scale */
   --space-1: 4px;
@@ -32,9 +39,9 @@
   --radius-2: 10px;
   --radius-3: 16px;
 
-  /* Type */
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+  /* Type — Intel One Mono throughout */
+  --font-mono: "Intel One Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-sans: var(--font-mono);
 
   /* Elevation */
   --shadow-1: 0 1px 2px rgba(0,0,0,0.4);

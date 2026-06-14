@@ -3,6 +3,7 @@
 // Runs at a fixed low internal resolution (CSS-stretched, pixelated) so the
 // per-pixel diffuse/decay pass and thousands of agents stay cheap.
 import { sizeOf } from "../../js/engine/lifecycle.js";
+import { BG, ACCENT, lerpRGB } from "../../js/engine/palette.js";
 
 export function sketch(p, ctx) {
   const { params, preview, container } = ctx;
@@ -125,11 +126,9 @@ export function sketch(p, ctx) {
     for (let i = 0; i < COLS * rows; i++) {
       const v = Math.min(1, trail[i]);
       const j = i * 4;
-      // Dark teal → bright violet ramp.
-      px[j] = 20 + v * 200;
-      px[j + 1] = 30 + v * 180;
-      px[j + 2] = 50 + v * 150;
-      px[j + 3] = 255;
+      // Trail density ramps from background to accent.
+      const c = lerpRGB(BG, ACCENT, v);
+      px[j] = c[0]; px[j + 1] = c[1]; px[j + 2] = c[2]; px[j + 3] = 255;
     }
     p.updatePixels();
   };

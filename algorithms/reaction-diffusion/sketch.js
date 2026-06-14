@@ -4,6 +4,7 @@
 // container via CSS (nearest-neighbour), which keeps the per-pixel update cheap
 // while still looking crisp.
 import { sizeOf } from "../../js/engine/lifecycle.js";
+import { BG, ACCENT, lerpRGB } from "../../js/engine/palette.js";
 
 export function sketch(p, ctx) {
   const { params, preview, container } = ctx;
@@ -83,13 +84,11 @@ export function sketch(p, ctx) {
     p.loadPixels();
     const px = p.pixels;
     for (let i = 0; i < COLS * rows; i++) {
-      // Map chemical concentration to a teal→violet ramp.
-      const c = Math.max(0, Math.min(1, a[i] - b[i]));
+      // Patterns (high chemical B) are the content → accent; substrate → bg.
+      const t = 1 - Math.max(0, Math.min(1, a[i] - b[i]));
+      const c = lerpRGB(BG, ACCENT, t);
       const j = i * 4;
-      px[j] = 40 + (1 - c) * 130;      // R
-      px[j + 1] = 40 + c * 190;        // G
-      px[j + 2] = 90 + c * 130;        // B
-      px[j + 3] = 255;                 // A
+      px[j] = c[0]; px[j + 1] = c[1]; px[j + 2] = c[2]; px[j + 3] = 255;
     }
     p.updatePixels();
   };

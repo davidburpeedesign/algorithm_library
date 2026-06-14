@@ -4,6 +4,7 @@
 // a fixed low resolution (CSS-stretched) so many micro-steps per frame are
 // affordable. Cells are tinted by the order they froze, revealing growth rings.
 import { sizeOf } from "../../js/engine/lifecycle.js";
+import { BG, INK, ACCENT, lerpRGB } from "../../js/engine/palette.js";
 
 export function sketch(p, ctx) {
   const { params, preview, container } = ctx;
@@ -99,19 +100,19 @@ export function sketch(p, ctx) {
       const j = i * 4;
       const age = grid[i];
       if (age === 0) {
-        px[j] = 12; px[j + 1] = 15; px[j + 2] = 20; px[j + 3] = 255;
+        px[j] = BG[0]; px[j + 1] = BG[1]; px[j + 2] = BG[2]; px[j + 3] = 255;
       } else {
-        const t = age / maxAge; // oldest (core) → newest (tips)
-        px[j] = 70 + t * 150;
-        px[j + 1] = 230 - t * 60;
-        px[j + 2] = 200 + t * 40;
-        px[j + 3] = 255;
+        // Frozen order ramps from ink (old core) to accent (new tips).
+        const t = age / maxAge;
+        const c = lerpRGB(INK, ACCENT, t);
+        px[j] = c[0]; px[j + 1] = c[1]; px[j + 2] = c[2]; px[j + 3] = 255;
       }
     }
-    // Mark live walkers as faint dots.
+    // Mark live walkers as faint ink dots.
+    const wc = lerpRGB(BG, INK, 0.45);
     for (const wk of walkers) {
       const j = (wk.x + wk.y * COLS) * 4;
-      px[j] = 90; px[j + 1] = 100; px[j + 2] = 120; px[j + 3] = 255;
+      px[j] = wc[0]; px[j + 1] = wc[1]; px[j + 2] = wc[2]; px[j + 3] = 255;
     }
     p.updatePixels();
   };
