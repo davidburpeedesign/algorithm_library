@@ -1,11 +1,13 @@
 // detail.js — the expanded view: a full-size sketch plus its Tweakpane panel.
 //
 // One overlay element is created up front and reused; opening a new algorithm
-// disposes the previous sketch/pane first so we never leak rAF loops.
+// disposes the previous sketch/pane first so we never leak rAF loops. The
+// overlay is "dumb": user dismiss actions call onDismiss so the router (main.js)
+// can keep the URL hash as the single source of truth.
 import { mountSketch } from "./engine/lifecycle.js";
 import { buildControls, defaultsFor } from "./engine/controls.js";
 
-export function createDetail(mountTarget = document.body) {
+export function createDetail(mountTarget = document.body, { onDismiss } = {}) {
   const overlay = document.createElement("div");
   overlay.className = "detail";
   overlay.setAttribute("role", "dialog");
@@ -33,6 +35,7 @@ export function createDetail(mountTarget = document.body) {
 
   /** @type {{ handle: any, pane: any } | null} */
   let current = null;
+  let currentId = null;
 
   function close() {
     if (current) {
@@ -40,13 +43,16 @@ export function createDetail(mountTarget = document.body) {
       current.handle?.dispose();
       current = null;
     }
+    currentId = null;
     panelEl.innerHTML = "";
     overlay.dataset.open = "false";
     document.body.style.overflow = "";
   }
 
   function open(algo) {
+    if (currentId === algo.id) return; // already showing this one
     close();
+    currentId = algo.id;
     overlay.dataset.open = "true";
     document.body.style.overflow = "hidden";
 
@@ -70,14 +76,15 @@ export function createDetail(mountTarget = document.body) {
     current = { handle, pane };
   }
 
-  // Dismiss on backdrop click, close button, or Escape.
-  closeBtn.addEventListener("click", close);
+  // User dismiss actions defer to the router so the URL stays authoritative.
+  const dismiss = () => (onDismiss ? onDismiss() : close());
+  closeBtn.addEventListener("click", dismiss);
   overlay.addEventListener("click", (e) => {
-    if (e.target === overlay) close();
+    if (e.target === overlay) dismiss();
   });
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && overlay.dataset.open === "true") close();
+    if (e.key === "Escape" && overlay.dataset.open === "true") dismiss();
   });
 
-  return { open, close };
+  return { open, close, isOpen: () => currentId !== null };
 }

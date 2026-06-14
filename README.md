@@ -41,14 +41,18 @@ import map in `index.html`.
 │   ├── detail.js           # expanded view: full sketch + Tweakpane panel
 │   └── engine/
 │       ├── lifecycle.js    # mount/dispose + start/stop for p5 sketches
-│       └── controls.js     # params schema -> Tweakpane panel
+│       ├── controls.js     # params schema -> Tweakpane panel
+│       └── palette.js      # shared colour scheme for every sketch
 ├── algorithms/
 │   ├── boids/              # flocking
 │   ├── flow-field/         # Perlin-noise flow field
 │   ├── physarum/           # slime-mould transport networks
 │   ├── ant-colony/         # stigmergic foraging
+│   ├── particle-fluid/     # particle-based 2D liquid
 │   ├── reaction-diffusion/ # Gray-Scott
 │   ├── voronoi/            # Lloyd-relaxed tessellation
+│   ├── differential-growth/# self-avoiding growing curve
+│   ├── chladni/            # cymatic nodal-line figures
 │   ├── dla/                # diffusion-limited aggregation
 │   └── l-system/           # Lindenmayer turtle graphics
 ├── assets/                 # optional poster thumbnails
@@ -96,6 +100,13 @@ Any static server works (`npx serve`, VS Code Live Server, etc.).
 The params schema fields map directly onto Tweakpane bindings (`min`, `max`,
 `step`, `options`, `label`); `value` is the default.
 
+## Deep linking
+
+The URL hash is the single source of truth for the open algorithm — e.g.
+`…/#physarum`. Opening a card sets the hash; closing clears it. That means
+reloads, shared links, and the browser back/forward button all restore the
+right view (see the router in `js/main.js`).
+
 ## Deploying
 
 1. Push to GitHub.
@@ -107,8 +118,7 @@ The params schema fields map directly onto Tweakpane bindings (`min`, `max`,
 ## Roadmap
 
 - More algorithms: cellular automata (Lenia / Game of Life), Perlin terrain,
-  differential growth, particle-based fluids.
+  reaction networks, wave-function collapse.
 - Optional poster thumbnails in `assets/` for instant grid paint before a
   preview mounts.
-- Deep-linking (`#<algorithm-id>`) to open a specific algorithm.
 - A "copy params" button to export a tuned configuration.
