@@ -14,6 +14,8 @@ import differentialGrowth from "../algorithms/differential-growth/index.js";
 import chladni from "../algorithms/chladni/index.js";
 import particleFluid from "../algorithms/particle-fluid/index.js";
 import cyclicCa from "../algorithms/cyclic-ca/index.js";
+import coral from "../algorithms/coral/index.js";
+import delaunayCloud from "../algorithms/delaunay-cloud/index.js";
 
 /** @type {object[]} */
 export const algorithms = [
@@ -27,6 +29,8 @@ export const algorithms = [
   differentialGrowth,
   chladni,
   cyclicCa,
+  coral,
+  delaunayCloud,
   dla,
   lSystem,
 ];

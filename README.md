@@ -54,6 +54,8 @@ import map in `index.html`.
 │   ├── differential-growth/# self-avoiding growing curve
 │   ├── chladni/            # cymatic nodal-line figures
 │   ├── cyclic-ca/          # Greenberg-Hastings cyclic automaton
+│   ├── coral/              # accretive coral growth
+│   ├── delaunay-cloud/     # 3D point cloud, Delaunay-meshed
 │   ├── dla/                # diffusion-limited aggregation
 │   └── l-system/           # Lindenmayer turtle graphics
 ├── assets/                 # optional poster thumbnails
