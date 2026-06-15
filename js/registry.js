@@ -13,6 +13,7 @@ import flowField from "../algorithms/flow-field/index.js";
 import differentialGrowth from "../algorithms/differential-growth/index.js";
 import chladni from "../algorithms/chladni/index.js";
 import particleFluid from "../algorithms/particle-fluid/index.js";
+import cyclicCa from "../algorithms/cyclic-ca/index.js";
 
 /** @type {object[]} */
 export const algorithms = [
@@ -25,6 +26,7 @@ export const algorithms = [
   voronoi,
   differentialGrowth,
   chladni,
+  cyclicCa,
   dla,
   lSystem,
 ];

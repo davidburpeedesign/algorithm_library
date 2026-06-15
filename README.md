@@ -53,6 +53,7 @@ import map in `index.html`.
 │   ├── voronoi/            # Lloyd-relaxed tessellation
 │   ├── differential-growth/# self-avoiding growing curve
 │   ├── chladni/            # cymatic nodal-line figures
+│   ├── cyclic-ca/          # Greenberg-Hastings cyclic automaton
 │   ├── dla/                # diffusion-limited aggregation
 │   └── l-system/           # Lindenmayer turtle graphics
 ├── assets/                 # optional poster thumbnails
