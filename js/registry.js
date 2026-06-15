@@ -13,6 +13,11 @@ import flowField from "../algorithms/flow-field/index.js";
 import differentialGrowth from "../algorithms/differential-growth/index.js";
 import chladni from "../algorithms/chladni/index.js";
 import particleFluid from "../algorithms/particle-fluid/index.js";
+import cyclicCa from "../algorithms/cyclic-ca/index.js";
+import coral from "../algorithms/coral/index.js";
+import delaunayCloud from "../algorithms/delaunay-cloud/index.js";
+import differentialMesh from "../algorithms/differential-mesh/index.js";
+import spaceColonization from "../algorithms/space-colonization/index.js";
 
 /** @type {object[]} */
 export const algorithms = [
@@ -25,6 +30,11 @@ export const algorithms = [
   voronoi,
   differentialGrowth,
   chladni,
+  cyclicCa,
+  coral,
+  spaceColonization,
+  delaunayCloud,
+  differentialMesh,
   dla,
   lSystem,
 ];
